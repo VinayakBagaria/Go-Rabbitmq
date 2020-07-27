@@ -55,3 +55,5 @@ Exchange must know what it should do with the message, defined by exchange type(
 ## Temporary Queues
 
 Create a random queue for every consumer via keeping `queue_name=''` while QueueDeclare(). Also, set `exclusive=true` to delete this queue when the connection to this consumer is closed.
+
+<img src="https://www.rabbitmq.com/img/tutorials/python-three-overall.png">

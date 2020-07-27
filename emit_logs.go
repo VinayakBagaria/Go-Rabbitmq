@@ -41,6 +41,7 @@ func main() {
 		ContentType: "text/plain",
 		Body:        []byte(body),
 	}
+	// message is lost if no consumer has a queue is bound to this exchange
 	err = ch.Publish(exchange_name, "", false, false, msg)
 	failOnError(err, "Failed to publish a message")
 	log.Printf(" [x] Sent %s", body)

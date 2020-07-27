@@ -31,6 +31,8 @@ func main() {
 	q, err := ch.QueueDeclare("", false, false, true, false, nil)
 	failOnError(err, "Failed to declare a queue")
 
+	// Relationship b/w Exchange and Queue is binding
+	// We tell the logs exchange to send message to our newly created queue for this consumer
 	err = ch.QueueBind(q.Name, "", exchange_name, false, nil)
 	failOnError(err, "Failed to bind a queue")
 
