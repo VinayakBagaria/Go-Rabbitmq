@@ -26,7 +26,8 @@ func main() {
 	q, err := ch.QueueDeclare("TestQueue", false, false, false, false, nil)
 	failOnError(err, "Failed to Declare a Queue")
 
-	// assuming here queue is made before and hence no ch.QueueDeclare()
+	// Do not auto-ack once the task is consumed, we will manually do it so that RMQ doesn't delete the task
+	// once consumed
 	msgs, err := ch.Consume(q.Name, "", false, false, false, false, nil)
 
 	forever := make(chan bool)
@@ -40,6 +41,7 @@ func main() {
 			t := time.Duration(dot_count)
 			time.Sleep(t * time.Second)
 			log.Printf("[x] Done with %s after %v seconds", message, dot_count)
+			// acknowledge that the task is completed
 			d.Ack(false)
 		}
 	}()
