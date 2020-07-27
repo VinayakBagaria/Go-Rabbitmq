@@ -32,8 +32,8 @@ func main() {
 	defer ch.Close()
 
 	// declaring an exchange "logs" of type fanout(pub/sub)
-	exchange_name := "logs"
-	err = ch.ExchangeDeclare(exchange_name, "fanout", true, false, false, false, nil)
+	exchangeName := "logs"
+	err = ch.ExchangeDeclare(exchangeName, "fanout", true, false, false, false, nil)
 	failOnError(err, "Failed to create an exchange")
 
 	body := commandLineArgs()
@@ -42,7 +42,7 @@ func main() {
 		Body:        []byte(body),
 	}
 	// message is lost if no consumer has a queue is bound to this exchange
-	err = ch.Publish(exchange_name, "", false, false, msg)
+	err = ch.Publish(exchangeName, "", false, false, msg)
 	failOnError(err, "Failed to publish a message")
 	log.Printf(" [x] Sent %s", body)
 }
