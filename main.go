@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/streadway/amqp"
 	"log"
+	"os"
+	"strings"
 )
 
 func failOnError(err error, msg string) {
@@ -12,7 +14,23 @@ func failOnError(err error, msg string) {
 	}
 }
 
+func commandLineArgs() string {
+	//var s string
+	/*
+	Command executed like "go run main.go some text here"
+	os.Args will return an array of length 4 -> [exec-path-to-main-go some text here]
+	We want all string from and after index 1
+	 */
+	args := os.Args
+	// no argument passed or empty passed
+	if len(args) < 2 || args[1] == "" {
+		return "Default Message"
+	}
+	return strings.Join(args[1:], " ")
+}
+
 func main() {
+	log.Print(commandLineArgs())
 	// establish a RMQ connection
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to Connect")
