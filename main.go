@@ -43,15 +43,19 @@ func main() {
 	// Make a queue via the interaction
 	// If we send message to a non-existing queue, RMQ will just drop the message
 	// QueueDeclare is idempotent - only 1 is created even if we declare it multiple times
-	// Marking the queue as durable so that it is not lost/deleted even if RMQ is stopped
+	// Marking the queue as durable so that it is not lost even if RMQ restarts
 	q, err := ch.QueueDeclare("TestQueue", true, false, false, false, nil)
 	failOnError(err, "Failed to declare a queue")
 
 	body := commandLineArgs()
-	// publish a message over to the queue
+	// Publish a message over to the queue
+	// Marking messages as persistent doesn't fully guarantee that a message won't be lost. There exists a short
+	// time when message is received by RMQ and hasn't been saved to the disk. Also it may not even store as a
+	// persistent storage, but use cache as its mechanism.
 	msg := amqp.Publishing{
 		ContentType: "text/plain",
 		Body:        []byte(body),
+		DeliveryMode: amqp.Persistent,
 	}
 	/*
 		messages can never be sent directly to a queue, it always needs to go through an exchange.
