@@ -58,7 +58,7 @@ Create a random queue for every consumer via keeping `queue_name=''` while Queue
 
 <img src="https://www.rabbitmq.com/img/tutorials/python-three-overall.png">
 
-## Direct Excahnge
+## Direct Exchange
 
 A message goes to the queues whose binding_key exactly matches the routing_key of the message.
 
