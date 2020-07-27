@@ -27,7 +27,7 @@ func main() {
 	failOnError(err, "Failed to Declare a Queue")
 
 	// assuming here queue is made before and hence no ch.QueueDeclare()
-	msgs, err := ch.Consume(q.Name, "", true, false, false, false, nil)
+	msgs, err := ch.Consume(q.Name, "", false, false, false, false, nil)
 
 	forever := make(chan bool)
 	go func() {
@@ -40,6 +40,7 @@ func main() {
 			t := time.Duration(dot_count)
 			time.Sleep(t * time.Second)
 			log.Printf("[x] Done with %s after %v seconds", message, dot_count)
+			d.Ack(false)
 		}
 	}()
 
