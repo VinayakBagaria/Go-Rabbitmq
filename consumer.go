@@ -26,6 +26,11 @@ func main() {
 	q, err := ch.QueueDeclare("TestQueue", true, false, false, false, nil)
 	failOnError(err, "Failed to Declare a Queue")
 
+	// This worker will have just 1 task. RMQ should wait for this worker to finish processing before any other task
+	// can be given to this.
+	err = ch.Qos(1, 0, false)
+	failOnError(err, "Failed to set QoS")
+
 	// Do not auto-ack once the task is consumed, we will manually do it so that RMQ doesn't delete the task
 	// once consumed
 	msgs, err := ch.Consume(q.Name, "", false, false, false, false, nil)
