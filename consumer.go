@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bytes"
 	"github.com/streadway/amqp"
 	"log"
+	"time"
 )
 
 func failOnError(err error, msg string) {
@@ -30,7 +32,14 @@ func main() {
 	forever := make(chan bool)
 	go func() {
 		for d := range msgs {
-			log.Printf("Received a message: %s", d.Body)
+			// message here will byte slice
+			message := d.Body
+			log.Printf("Received a message: %s", message)
+			// count of dots in message bytes via a dot byte slice
+			dot_count := bytes.Count(message, []byte("."))
+			t := time.Duration(dot_count)
+			time.Sleep(t * time.Second)
+			log.Printf("[x] Done with %s after %v seconds", message, dot_count)
 		}
 	}()
 
