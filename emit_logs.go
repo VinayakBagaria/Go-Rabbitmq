@@ -31,6 +31,7 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
+	// declaring an exchange "logs" of type fanout(pub/sub)
 	exchange_name := "logs"
 	err = ch.ExchangeDeclare(exchange_name, "fanout", true, false, false, false, nil)
 	failOnError(err, "Failed to create an exchange")

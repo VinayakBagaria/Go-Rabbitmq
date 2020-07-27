@@ -25,6 +25,9 @@ func main() {
 	err = ch.ExchangeDeclare(exchange_name, "fanout", true, false, false, false, nil)
 	failOnError(err, "Failed to create an exchange")
 
+	// Whenever we connect on this pub/sub mechanism, make a fresh/empty queue and let RMQ decide its name
+	// via empty string
+	// With exclusive set to true, this queue will be deleted once this consumer's connection is closed
 	q, err := ch.QueueDeclare("", false, false, true, false, nil)
 	failOnError(err, "Failed to declare a queue")
 
