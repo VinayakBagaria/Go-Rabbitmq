@@ -1,3 +1,5 @@
+<img src="https://www.rabbitmq.com/img/logo-rabbitmq.svg">
+
 Run an instance of RMQ via:
 
 `docker run -d -p 15672:15672 -p 5672:5672 rabbitmq:3-management`
@@ -56,7 +58,7 @@ Exchange must know what it should do with the message, defined by exchange type(
 
 ## Temporary Queues
 
-Create a random queue for every consumer via keeping `queue_name=''` while QueueDeclare(). Also, set `exclusive=true` to delete this queue when the connection to this consumer is closed.
+Create a random queue for every consumer via keeping `queue_name=''` while declaring a queue. Also, set `exclusive=true` to delete this queue when the connection to this consumer is closed.
 
 <img src="https://www.rabbitmq.com/img/tutorials/python-three-overall.png">
 
@@ -66,6 +68,6 @@ A message goes to the queues whose binding_key exactly matches the routing_key o
 
 <img src="https://www.rabbitmq.com/img/tutorials/direct-exchange.png">
 
-So while publishing, if a message has routing_key as green, it will match with the 3rd binding_key and so added to 2nd queue.
+So while publishing, if a message has routing_key as "green", it will match with the 3rd binding_key and so added to 2nd queue.
 
 If all binding_key are same, its a fanout.
