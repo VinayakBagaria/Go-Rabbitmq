@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/streadway/amqp"
+)
 
 func main() {
 	fmt.Println("Go RMQ")
