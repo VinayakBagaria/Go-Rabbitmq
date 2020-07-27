@@ -1,4 +1,4 @@
-package main
+package routing
 
 import (
 	"github.com/streadway/amqp"
