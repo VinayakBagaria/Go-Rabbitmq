@@ -38,3 +38,16 @@ RMQ doesn't know if a consumer is busy or free. It just dispatches messages even
 
 Solution: \
 Use `Channel#qos` method and set `prefetch_count=1`. So RMQ will not give more than 1 message to a worker at a time. Don't dispatch until previous one full processed and acked. Instead, RMQ dispatches it to next available worker which is not busy.
+
+## Exchanges
+
+Producer never pushes directly to a queue, but done via an exchange.
+It receives msg from producer and pushes them to the queue.
+
+<img src="https://www.rabbitmq.com/img/tutorials/exchanges.png">
+
+Exchange must know what it should do with the message, defined by exchange type(direct, topic, headers, fanout):
+
+- append to a particular queue?
+- append to many queues?
+- discard the message?
