@@ -1,4 +1,6 @@
-docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+Run an instance of RMQ via:
+
+`docker run -d -p 15672:15672 -p 5672:5672 rabbitmq:3-management`
 
 ## Round Robin Dispatching
 
