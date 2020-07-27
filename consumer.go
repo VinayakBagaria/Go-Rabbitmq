@@ -22,6 +22,7 @@ func main() {
 	}
 	defer ch.Close()
 
+	// assuming here queue is made before and hence no ch.QueueDeclare()
 	msgs, err := ch.Consume("TestQueue", "", true, false, false, false, nil)
 
 	forever := make(chan bool)
