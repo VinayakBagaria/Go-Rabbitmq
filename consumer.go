@@ -1,9 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"log"
 	"github.com/streadway/amqp"
+	"log"
 )
 
 func failOnError(err error, msg string) {
@@ -14,8 +13,6 @@ func failOnError(err error, msg string) {
 }
 
 func main() {
-	fmt.Println("Consumer App")
-
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to Connect")
 	defer conn.Close()
@@ -24,21 +21,20 @@ func main() {
 	failOnError(err, "Failed to Open a Channel")
 	defer ch.Close()
 
-	q, err := ch.QueueDeclare("TestQueue", false, false,false, false, nil)
+	q, err := ch.QueueDeclare("TestQueue", false, false, false, false, nil)
 	failOnError(err, "Failed to Declare a Queue")
 
 	// assuming here queue is made before and hence no ch.QueueDeclare()
 	msgs, err := ch.Consume(q.Name, "", true, false, false, false, nil)
 
 	forever := make(chan bool)
-	go func(){
+	go func() {
 		for d := range msgs {
-			fmt.Printf("Received Message: %s\n", d.Body)
+			log.Printf("Received a message: %s", d.Body)
 		}
 	}()
 
-	fmt.Println("Successfully Connected to RMQ")
-	fmt.Println(" [*] - waiting for msgs")
+	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
 	// since no one is sending to channel, this is forever blocking to get a value
 	<-forever
 }
