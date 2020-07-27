@@ -1,4 +1,11 @@
-<img src="https://www.rabbitmq.com/img/logo-rabbitmq.svg">
+# Go RabbitMQ Implementation
+
+A repo with example containing following scenarios:
+
+- Publish and Consume messages via 2 Go apps
+- Message Acknowledgment and Durability
+- Pub/Sub mechanism using Fanout exchanges
+- Routing Key and Binding Key implementation
 
 Run an instance of RMQ via:
 
