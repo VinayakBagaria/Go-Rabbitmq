@@ -30,7 +30,6 @@ func commandLineArgs() string {
 }
 
 func main() {
-	log.Print(commandLineArgs())
 	// establish a RMQ connection
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to Connect")
@@ -47,7 +46,7 @@ func main() {
 	q, err := ch.QueueDeclare("TestQueue", false, false, false, false, nil)
 	failOnError(err, "Failed to declare a queue")
 
-	body := "Hello World"
+	body := commandLineArgs()
 	// publish a message over to the queue
 	msg := amqp.Publishing{
 		ContentType: "text/plain",
