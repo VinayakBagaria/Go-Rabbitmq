@@ -17,7 +17,7 @@ func failOnError(err error, msg string) {
 }
 
 func main() {
-	connectionUrl := fmt.Sprintf("amqp://%s:%s@%s:%s/", os.Getenv("RMQ_USER"), os.Getenv("RMQ_PASS"), os.Getenv("RMQ_HOST"), os.Getenv("RMQ_PORT"))
+	connectionUrl := "amqp://guest:guest@localhost:5672/"
 	conn, err := amqp.Dial(connectionUrl)
 	failOnError(err, "Failed to Connect")
 	defer conn.Close()
