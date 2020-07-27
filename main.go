@@ -8,6 +8,7 @@ import (
 func main() {
 	fmt.Println("Go RMQ")
 
+	// establish a RMQ connection
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	if err != nil {
 		fmt.Println(err)
@@ -17,6 +18,7 @@ func main() {
 
 	fmt.Println("Successfully connected to RMQ")
 
+	// channel to the connection made to start interaction with RMQ
 	ch, err := conn.Channel()
 	if err != nil {
 		fmt.Println(err)
@@ -24,6 +26,7 @@ func main() {
 	}
 	defer ch.Close()
 
+	// make a queue via the interaction
 	q, err := ch.QueueDeclare("TestQueue", false, false, false, false, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -32,6 +35,7 @@ func main() {
 
 	fmt.Println(q)
 
+	// publish a message over to the queue
 	msg := amqp.Publishing{
 		ContentType: "text/plain",
 		Body:        []byte("Hello World"),

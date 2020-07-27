@@ -33,5 +33,6 @@ func main() {
 
 	fmt.Println("Successfully Connected to RMQ")
 	fmt.Println(" [*] - waiting for msgs")
+	// since no one is sending to channel, this is forever blocking to get a value
 	<-forever
 }
