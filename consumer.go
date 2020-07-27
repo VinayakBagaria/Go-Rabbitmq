@@ -23,7 +23,7 @@ func main() {
 	failOnError(err, "Failed to Open a Channel")
 	defer ch.Close()
 
-	q, err := ch.QueueDeclare("TestQueue", false, false, false, false, nil)
+	q, err := ch.QueueDeclare("TestQueue", true, false, false, false, nil)
 	failOnError(err, "Failed to Declare a Queue")
 
 	// Do not auto-ack once the task is consumed, we will manually do it so that RMQ doesn't delete the task

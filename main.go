@@ -40,10 +40,11 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
-	// make a queue via the interaction
-	// if we send message to a non-existing queue, RMQ will just drop the message
-	// QueueDeclare is idempotent - 1 is created even if we declare it multiple times
-	q, err := ch.QueueDeclare("TestQueue", false, false, false, false, nil)
+	// Make a queue via the interaction
+	// If we send message to a non-existing queue, RMQ will just drop the message
+	// QueueDeclare is idempotent - only 1 is created even if we declare it multiple times
+	// Marking the queue as durable so that it is not lost/deleted even if RMQ is stopped
+	q, err := ch.QueueDeclare("TestQueue", true, false, false, false, nil)
 	failOnError(err, "Failed to declare a queue")
 
 	body := commandLineArgs()

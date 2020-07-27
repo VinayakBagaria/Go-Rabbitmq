@@ -25,3 +25,7 @@ Consumer can die in some of following ways:
 If consumer dies without sending ACK, RMQ can say that a message wasn't fully processed and will re-queue it. If any other worker is online, it will send it there immediately to complete processing.
 
 `No Message Timeouts`
+
+## Message Durability
+
+RMQ will forget all the queues and associated messages once crashes or quits. Hence, lost. So mark `both queues and messages as durable`.
