@@ -7,6 +7,10 @@ A repo with example containing following scenarios:
 - Pub/Sub mechanism using Fanout exchanges
 - Routing Key and Binding Key implementation
 
+## Usage
+
+- [Go RMQ Client](https://github.com/streadway/amqp)
+
 Run an instance of RMQ via:
 
 `docker run -d -p 15672:15672 -p 5672:5672 rabbitmq:3-management`
