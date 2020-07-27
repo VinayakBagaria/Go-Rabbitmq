@@ -2,10 +2,8 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/streadway/amqp"
 	"log"
-	"os"
 	"time"
 )
 
